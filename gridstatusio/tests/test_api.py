@@ -6,9 +6,7 @@ import pytest
 import gridstatusio as gs
 from gridstatusio.version import version_is_higher
 
-client = gs.GridStatusClient(
-    api_key=os.getenv("GRIDSTATUS_API_KEY_TEST"),
-)
+client = gs.GridStatusClient(api_key=os.getenv("GRIDSTATUS_API_KEY_TEST"))
 
 
 @pytest.mark.parametrize(
@@ -495,6 +493,9 @@ def test_resample_frequency():
         dataset="ercot_real_time_as_monitor",
         start="2023-08-01",
         end="2023-08-02",
+        # we don't have to provide time_utc
+        # but will for testing purposes
+        # to make sure it works
         columns=["time_utc", "prc"],
         resample="5 minutes",
         verbose=True,
@@ -505,6 +506,8 @@ def test_resample_frequency():
         length=288,
         columns=[
             "time_utc",
+            "interval_start_utc",
+            "interval_end_utc",
             "resample_frequency",
             "prc",
         ],
@@ -518,7 +521,9 @@ def test_resample_frequency():
         dataset="ercot_real_time_as_monitor",
         start="2023-08-01",
         end="2023-08-02",
-        columns=["time_utc", "prc"],
+        # we will skip time_utc
+        # since we used it above
+        columns=["prc"],
         # dont need to specify plural
         resample="4 hour",
         verbose=True,
@@ -529,6 +534,8 @@ def test_resample_frequency():
         length=6,
         columns=[
             "time_utc",
+            "interval_start_utc",
+            "interval_end_utc",
             "resample_frequency",
             "prc",
         ],
