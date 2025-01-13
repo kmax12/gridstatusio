@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 - Upcoming
+
+- Adds a `timezone` parameter used for returning results in local time and resampling results to frequencies one day or lower
+  - With this addition, the `tz` parameter is deprecated and will be removed in a future release
+
 ## 0.8.0 - September 25, 2024
 
 - Adds automatic retries using an exponential backoff when fetching data if an API rate limit is hit. Also adds parameters for configuring `max_retries` on `GridStatusClient` and an optional `sleep_time` parameter on `GridStatusClient.get_dataset`.
